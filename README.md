@@ -1,4 +1,4 @@
-# Twitter Emoji (Twemoji)
+# Twitter Emoji (Twemoji) [![Build Status](https://travis-ci.org/jdecked/twemoji.svg?branch=gh-pages)](https://travis-ci.org/jdecked/twemoji)
 
 A simple library that provides standard Unicode [emoji](http://en.wikipedia.org/wiki/Emoji) support across all platforms.
 
@@ -18,7 +18,7 @@ npm install @twemoji/api
 
 ### CDN Support
 
-Default CDN support is provided via [jsDelivr](https://www.jsdelivr.com/).
+Default CDN support is provided via [jsDelivr](https://www.jsdelivr.com).
 
 Use the following in the `<head>` tag of your HTML document(s):
 
@@ -29,6 +29,7 @@ Use the following in the `<head>` tag of your HTML document(s):
 This guarantees that you will always use the latest version of the library.
 
 If, instead, you'd like to include the latest version explicitly, you can add the following tag:
+
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js" integrity="sha384-D6GSzpW7fMH86ilu73eB95ipkfeXcMPoOGVst/L04yqSSe+RTUY0jXcuEIZk0wrT" crossorigin="anonymous"></script>
 ```
@@ -53,16 +54,16 @@ The second kind of parsing is string parsing, explained in the legacy documentat
 
 If the first argument to `twemoji.parse` is an `HTMLElement`, generated image tags will replace emoji that are **inside `#text` nodes only** without compromising surrounding nodes or listeners, and completely avoiding the usage of `innerHTML`.
 
-If security is a major concern, this parsing can be considered the safest option but with a slight performance penalty due to DOM operations that are inevitably *costly*.
+If security is a major concern, this parsing can be considered the safest option but with a slight performance penalty due to DOM operations that are inevitably _costly_.
 
 ```js
-var div = document.createElement('div');
+let div = document.createElement('div');
 div.textContent = 'I \u2764\uFE0F emoji!';
 document.body.appendChild(div);
 
 twemoji.parse(document.body);
 
-var img = div.querySelector('img');
+let img = div.querySelector('img');
 
 // note the div is preserved
 img.parentNode === div; // true
@@ -81,16 +82,16 @@ All other overloads described for `string` are available in exactly the same way
 Here's the list of properties accepted by the optional object that can be passed to the `parse` function.
 
 ```js
-  {
-    callback: Function,   // default the common replacer
-    attributes: Function, // default returns {}
-    base: string,         // default jsDelivr
-    ext: string,          // default ".png"
-    className: string,    // default "emoji"
-    size: string|number,  // default "72x72"
-    folder: string        // in case it's specified
-                          // it replaces .size info, if any
-  }
+{
+  callback: Function,   // default the common replacer
+  attributes: Function, // default returns {}
+  base: string,         // default jsDelivr
+  ext: string,          // default ".png"
+  className: string,    // default "emoji"
+  size: string|number,  // default "72x72"
+  folder: string        // in case it's specified
+                        // it replaces .size info, if any
+}
 ```
 
 #### callback
@@ -154,7 +155,7 @@ For a given HEX codepoint, returns UTF-16 surrogate pairs.
 
 ```js
 twemoji.convert.fromCodePoint('1f1e8');
- // "\ud83c\udde8"
+// "\ud83c\udde8"
 ```
 
 ### twemoji.convert.toCodePoint()
@@ -162,11 +163,11 @@ twemoji.convert.fromCodePoint('1f1e8');
 For given UTF-16 surrogate pairs, returns the equivalent HEX codepoint.
 
 ```js
- twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3');
- // "1f1e8-1f1f3"
+twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3');
+// "1f1e8-1f1f3"
 
- twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3', '~');
- // "1f1e8~1f1f3"
+twemoji.convert.toCodePoint('\ud83c\udde8\ud83c\uddf3', '~');
+// "1f1e8~1f1f3"
 ```
 
 ## Tips
@@ -177,10 +178,10 @@ If you'd like to size the emoji according to the surrounding text, you can add t
 
 ```css
 img.emoji {
-   height: 1em;
-   width: 1em;
-   margin: 0 .05em 0 .1em;
-   vertical-align: -0.1em;
+  height: 1em;
+  width: 1em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.1em;
 }
 ```
 
@@ -196,24 +197,23 @@ To properly support emoji, the document character set must be set to UTF-8. This
 
 ### Exclude Characters (V1)
 
-To exclude certain characters from being replaced by twemoji.js, call twemoji.parse() with a callback, returning false for the specific unicode icon. For example:
+To exclude certain characters from being replaced by twemoji.js, call `twemoji.parse()` with a callback, returning false for the specific unicode icon. For example:
 
 ```js
 twemoji.parse(document.body, {
-    callback: function(icon, options, variant) {
-        switch ( icon ) {
-            case 'a9':      // © copyright
-            case 'ae':      // ® registered trademark
-            case '2122':    // ™ trademark
-                return false;
-        }
-        return ''.concat(options.base, options.size, '/', icon, options.ext);
+  callback: function(icon, options, variant) {
+    switch (icon) {
+      case 'a9':      // © copyright
+      case 'ae':      // ® registered trademark
+      case '2122':    // ™ trademark
+        return false;
     }
+    return ''.concat(options.base, options.size, '/', icon, options.ext);
+  }
 });
 ```
 
 ## Legacy API (V1)
-
 If you're still using our V1 API, you can read our legacy documentation [here](LEGACY.md).
 
 ## Contributing
@@ -229,12 +229,12 @@ However, we consider the guide a bit onerous and as a project, will accept a men
 ## Community Projects
 
 * [Twemoji Cheatsheet](https://twemoji-cheatsheet.vercel.app) by [@ShahriarKh](https://github.com/ShahriarKh): An easy-to-use cheatsheet for exploring, copying and downloading emojis!
-* [Twemoji Amazing](https://github.com/SebastianAigner/twemoji-amazing) by [@SebastianAigner](https://github.com/SebastianAigner): Use Twemoji using CSS classes (like [Font Awesome](http://fortawesome.github.io/Font-Awesome/)).
+* [Twemoji Amazing](https://github.com/SebastianAigner/twemoji-amazing) by [@SebastianAigner](https://github.com/SebastianAigner): Use Twemoji using CSS classes (like [Font Awesome](http://fortawesome.github.io/Font-Awesome)).
 * [Twemoji Ruby](https://github.com/jollygoodcode/twemoji) by [@JollyGoodCode](https://twitter.com/jollygoodcode): Use Twemoji in Ruby.
 * [Twemoji Utils](https://github.com/gustavwilliam/twemoji-utils) by [@gustavwilliam](https://github.com/gustavwilliam): Utilities for finding and downloading Twemoji source files.
 * [Twemoji for Pencil](https://github.com/nathanielw/Twemoji-for-Pencil) by [@Nathanielnw](https://twitter.com/nathanielnw): Use Twemoji in Pencil.
-* [FrwTwemoji - Twemoji in dotnet](http://github.frenchw.net/FrwTwemoji/) by [@FrenchW](https://twitter.com/frenchw): Use Twemoji in any dotnet project (C#, asp.net ...).
-* [Emojiawesome - Twemoji for Yellow](https://github.com/datenstrom/yellow-extensions/tree/master/source/emojiawesome) by [@datenstrom](https://github.com/datenstrom/): Use Twemoji on your website.
+* [FrwTwemoji - Twemoji in dotnet](http://github.frenchw.net/FrwTwemoji) by [@FrenchW](https://twitter.com/frenchw): Use Twemoji in any dotnet project (C#, asp.net ...).
+* [Emojiawesome - Twemoji for Yellow](https://github.com/datenstrom/yellow-extensions/tree/main/source/emojiawesome) by [@datenstrom](https://github.com/datenstrom): Use Twemoji on your website.
 * [EmojiPanel for Twitter](https://github.com/danbovey/EmojiPanel) by [@danielbovey](https://twitter.com/danielbovey/status/749580050274582528): Insert Twemoji into your tweets on twitter.com.
 * [Twitter Color Emoji font](https://github.com/eosrei/twemoji-color-font) by [@bderickson](https://twitter.com/bderickson): Use Twemoji as your system default font on Linux & OS X.
 * [Emojica](https://github.com/xoudini/emojica) by [@xoudini](https://twitter.com/xoudini): An iOS framework allowing you to replace all standard emoji in strings with Twemoji.
@@ -271,4 +271,4 @@ See the [LICENSE](LICENSE) and [LICENSE-GRAPHICS](LICENSE-GRAPHICS) files for fu
 
 Code licensed under the MIT License: <http://opensource.org/licenses/MIT>
 
-Graphics licensed under CC-BY 4.0: <https://creativecommons.org/licenses/by/4.0/>
+Graphics licensed under CC-BY 4.0: <https://creativecommons.org/licenses/by/4.0>
